@@ -47,4 +47,5 @@ if __name__ == "__main__":
 
     # set up the visualization
     fig, ax, bars = setup_visualization(sorted_array)
-    plt.show()
+    plt.show(block=False)
+    plt.pause(10)
