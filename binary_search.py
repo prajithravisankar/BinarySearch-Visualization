@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def setup_visualization(arr, figsize=(10, 6)):
+def setup_visualization(arr, figsize=None):
     """
     Set up the initial visualization of the array. 
 
@@ -17,6 +17,9 @@ def setup_visualization(arr, figsize=(10, 6)):
     - bars: bar chart representing the array
     """
 
+    if figsize is None:
+        figsize = (max(10, len(arr) * 0.5), 6)
+
     # create the matplotlib figure and axes object
     fig, ax = plt.subplots(figsize=figsize)
 
@@ -26,16 +29,18 @@ def setup_visualization(arr, figsize=(10, 6)):
 
     # add x-axis labels, y-axis labels, and title
     ax.set_xticks(positions)
-    ax.set_xticklabels([str(i) for i in range(len(arr))])
+    ax.set_xticklabels([str(i) for i in range(len(arr))], rotation = 90)
     ax.set_xlabel('Index')
     ax.set_ylabel('Value')
     ax.set_title('Binary Search Visualization')
 
-    for i, value in enumerate(arr):
-        ax.text(i, value + 0.5, str(value), ha='center', fontsize=8, color='black')
-    
-    return fig, ax, bars
+    # dynamically adjust the y-axis limits
+    max_value = max(arr)
+    ax.set_ylim(0, max_value * 1.2)
 
+    for i, value in enumerate(arr):
+        ax.text(i, value + 5, str(value), ha='center', fontsize=8, color='black', rotation=90)
+    
     return fig, ax, bars
 
 def binary_search(arr, target):
@@ -136,9 +141,8 @@ def binary_search_visualized(arr, target, bars, ax, pause_time=3.0):
 
 if __name__ == "__main__":
     print("Binary Search Visualization Program")
-
-    array_size = 20
-    random_array = np.random.randint(1, 100, size=array_size)
+    array_size = int(input("Enter the size of the array: "))
+    random_array = np.random.randint(1, 1000, size=array_size)
 
     print("Random array:", random_array)
 
