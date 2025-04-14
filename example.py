@@ -28,6 +28,9 @@ def setup_visualization(arr, figsize=(10, 6)):
     ax.set_xlabel('Index')
     ax.set_ylabel('Value')
     ax.set_title('Binary Search Visualization')
+
+    for i, value in enumerate(arr):
+        ax.text(i, value + 0.5, str(value), ha='center', fontsize=8, color='black')
     
     return fig, ax, bars
 
